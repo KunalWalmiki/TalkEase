@@ -1,0 +1,16 @@
+# Ignore frontend environment files
+frontend/.env
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+# Ignore backend environment files
+backend/.env
+backend/node_modules/
+backend/dist/
+backend/build/
+
+# Ignore common files and directories
+.idea/
+.vscode/
+*.log
