@@ -27,6 +27,14 @@
     color : #2d3941 !important;
 }
 
+.dark .input_message {
+    color : whitesmoke !important;
+}
+
+.input_message {
+    color : black;
+}
+
 .icon {
 
     width: 1.7rem !important;

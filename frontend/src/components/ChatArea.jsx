@@ -181,7 +181,12 @@ const ChatArea = () => {
           variant="standard" 
           maxRows={2}
           placeholder='Type a Message'
-          className='w-full outline-0'
+          inputProps={{
+            style: {
+              color: `${theme ? "white" : " black"}`, // Set text color to white
+            }
+          }}
+          className={`w-full outline-0 `}
           InputProps={{ disableUnderline: true }}
           onChange={(e) => {
             setMessage(e.target.value);
