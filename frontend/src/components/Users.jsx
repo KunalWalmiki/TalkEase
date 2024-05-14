@@ -80,7 +80,7 @@ const Users = () => {
         />
       </div>
 
-      <div className="listItem_container min-h-[200px]">
+      <div className="listItem_container min-h-[200px] overflow-y-auto overflow-x-hidden">
         {
                       loading ? 
                       (

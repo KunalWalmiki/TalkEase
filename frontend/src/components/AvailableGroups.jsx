@@ -59,7 +59,7 @@ const AvailableGroups = () => {
       <input placeholder="Search" className={`search_box unselectable ${theme ? "dark" : ""}`}/>
     </div>
 
-    <div className="listItem_container min-h-[200px]">
+    <div className="listItem_container min-h-[200px] overflow-y-auto overflow-x-hidden">
       {
                       
                       loading ? 

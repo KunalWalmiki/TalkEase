@@ -87,7 +87,7 @@ const CreateGroups = () => {
         </div>
         </label>
 
-        <div className="px-10 mt-5">
+        <div className="px-10 mt-5 overflow-y-auto overflow-x-hidden">
           <p
           className="text-md text-center font-medium text-black"
           >Select Users</p>
