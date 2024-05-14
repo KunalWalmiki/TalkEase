@@ -5,34 +5,36 @@ import { useNavigate } from 'react-router-dom';
 import { fetchAllChats } from '../services/operations/chat';
 import ConversationItem from './ConversationItem';
 import Spinner from './Spinner';
-
-
+import { setConversations } from '../redux/slices/userSlice';
 
 const SmallScreenChats = () => {
 
   const theme = useSelector((state) => state.themeKey);
-  const [conversations, setConversations] = useState([]);
   const {user} = useSelector((state) => state.auth);
   const userData = JSON.parse(user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const {conversations} = useSelector((state) => state.auth);
+  const conversationData = JSON.parse(conversations);
+
+  console.log(conversationData);
 
   useEffect(() => {
-
-    setLoading(true);
     const fetchConversations = async() => {
 
-        const response = await fetchAllChats()
-        
+        setLoading(true);
+        const response = await fetchAllChats({})
+        setLoading(false);
         if(response) {
             
-            setConversations(response);
-            console.log(response);
+            // setConversations(response);
+            dispatch(setConversations(JSON.stringify(response)));
+
         }
 
     }
-    setLoading(false);
+    
 
     fetchConversations();
 
@@ -57,8 +59,16 @@ const SmallScreenChats = () => {
           
             <div className={`sd_conversation1 min-h-[200px] ${theme ? "dark" : ""}`}>
             {
-                conversations && conversations.length > 0 ? (
-                  conversations.map((conversation, index) => {
+                loading ? 
+                (
+                  <div className='flex mt-10 items-center justify-center'>
+                      <Spinner Color="text-black"/>
+                  </div>
+                )
+                : 
+                (
+                conversationData && conversationData.length > 0 ? (
+                  conversationData.map((conversation, index) => {
                     var chatName = "";
                     var image= "";
                     if(conversation?.isGroupChat) {
@@ -75,14 +85,14 @@ const SmallScreenChats = () => {
                       }
 
                     return (<ConversationItem key={index} conversation={conversation} chatName={chatName} image={image}/>)
-                })
-              ) 
-              : 
-              (
-                <div className='flex mt-10 items-center justify-center'>
-                      <Spinner Color="text-black"/>
-                </div>
-              )
+                }))
+                : 
+                (
+                     <div className='grid place-content-center font-medium text-md mt-20'>
+                          No User Found
+                     </div>
+                )
+                ) 
             }
           </div>         
       </motion.div>
