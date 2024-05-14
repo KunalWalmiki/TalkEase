@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import DoneIcon from "@mui/icons-material/Done";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { createGroup } from "../services/operations/chat";
+import { createGroup, fetchAllChats } from "../services/operations/chat";
 import { useNavigate } from "react-router-dom";
 import { getAllUsers } from "../services/operations/auth";
 import Spinner from "./Spinner";
+import { setConversations } from "../redux/slices/userSlice";
 
 const CreateGroups = () => {
   const theme = useSelector((state) => state.themeKey);
@@ -40,11 +41,15 @@ const CreateGroups = () => {
   const addGroup =  async() => {
 
     const groupUsers = [userData?.id, ...selectedUsers];
-    const response = dispatch(createGroup(
+    const response = createGroup(
       groupUsers,
       groupName,
       navigate
-    ));
+    );
+
+    const result = await fetchAllChats({});
+    console.log(result);
+    dispatch(setConversations(JSON.stringify(result)));
 
   };
 

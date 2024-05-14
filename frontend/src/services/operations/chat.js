@@ -16,7 +16,7 @@ const {
 } = chatEndPoints;
 
 
-export const accessChat = async(formData) => {
+export const accessChat = async(formData) => {  
 
         // const toastId = toast.loading("Loading...!");
         // dispatch(setEdit(true));
