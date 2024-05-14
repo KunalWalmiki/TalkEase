@@ -14,7 +14,8 @@ import toast from 'react-hot-toast';
 import Spinner from './Spinner';
 var socket;
 
-const endPoint = "http://localhost:4000"; 
+// const endPoint = "http://localhost:4000"; 
+const endPoint = import.meta.env.VITE_SOCKET_BASE_URL;
 
 const ChatArea = () => {
 
@@ -43,8 +44,6 @@ const ChatArea = () => {
 
     })
   }
-
-  console.log(image);
 
   const fetchAllMessage = async() => {
 
