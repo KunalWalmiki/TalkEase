@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const dbConnect = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
@@ -26,6 +27,24 @@ app.use(
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/profile", profileRoutes);
+
+
+// -------------------------------Deployment------------------------------
+
+// server static files from the build directory
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Define a route that servers the index.html file for any route
+app.get("/*", (req, res) => {
+
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+
+});
+
+// --------------------------------------------------------------------------
+
+
+console.log(path.join(__dirname, 'build', 'index.html'));
 
 app.get("/", (req, res) => {
 
