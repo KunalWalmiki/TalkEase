@@ -6,7 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const fileUpload = require("express-fileupload");
-
+require("dotenv").config();
 const cors = require("cors");
 require("./config/cloudinary").cloudinaryConnect();
 dbConnect();
@@ -47,7 +47,7 @@ app.get("/*", (req, res) => {
     const vercelUrl = `https://talk-ease.vercel.app/`;
 
     res.redirect(`${vercelUrl}`);
-    
+
 })
 
 // --------------------------------------------------------------------------
@@ -61,8 +61,9 @@ app.get("/", (req, res) => {
 
 })
 
+const PORT = process.env.PORT | 5000;
 
-const server = app.listen(4000, () => {
+const server = app.listen(PORT,() => {
 
     console.log("Your Server is Up and Running at 4000 Port");
 
