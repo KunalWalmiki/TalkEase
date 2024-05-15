@@ -32,19 +32,28 @@ app.use("/api/v1/profile", profileRoutes);
 // -------------------------------Deployment------------------------------
 
 // server static files from the build directory
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+// app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// Define a route that servers the index.html file for any route
+// // Define a route that servers the index.html file for any route
+// app.get("/*", (req, res) => {
+
+//     res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+
+// });
+
+
 app.get("/*", (req, res) => {
 
-    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+    const vercelUrl = `https://talk-ease.vercel.app/`;
 
-});
+    res.redirect(`${vercelUrl}`);
+    
+})
 
 // --------------------------------------------------------------------------
 
 
-console.log(path.join(__dirname, '../frontend/dist', 'index.html'));
+// console.log(path.join(__dirname, '../frontend/dist', 'index.html'));
 
 app.get("/", (req, res) => {
 
