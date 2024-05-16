@@ -14,7 +14,7 @@ const {
 
 export const signup = async(formData, navigate) => {
 
-    const toastId = toast.loading("Loading...!");
+    // const toastId = toast.loading("Loading...!");
 
     try {
 
@@ -37,7 +37,7 @@ export const signup = async(formData, navigate) => {
 
     }
 
-    toast.dismiss(toastId);
+    // toast.dismiss(toastId);
 
 }
 
@@ -45,7 +45,7 @@ export const login = (formData, navigate, dispatch) => {
 
     return async(dispatch) => {
 
-        const toastId = toast.loading("Loading...!");
+        // const toastId = toast.loading("Loading...!");
         try {
 
             const response = await apiConnector("POST", LOGIN_API, formData);
@@ -73,7 +73,7 @@ export const login = (formData, navigate, dispatch) => {
         }
 
         
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
     }
 
 }

@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material'
+import { Button, CircularProgress, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import InputBox from './InputBox'
@@ -13,6 +13,7 @@ const Login = () => {
     password : "",
   });
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,8 +28,10 @@ const Login = () => {
 
     }
 
-     await dispatch(login({email, password}, navigate));
      setFormData({email : "", password : ""});
+     setLoading(true);
+     await dispatch(login({email, password}, navigate));
+     setLoading(false);
 
   }
 
@@ -83,10 +86,22 @@ const Login = () => {
          }}
          />
   
-        <Button 
-        onClick={handleSubmit}
-        variant="contained"
-        >Sign In</Button>
+         <Button
+          variant="contained"
+          disabled={loading}
+          onClick={handleSubmit}
+          inputProps={{
+            style: {
+              marginTop : "10px", // Set text color to white
+            }
+          }}
+        >
+          {loading ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            "Sign In"
+          )}
+        </Button>
                
         </div>
 </div>

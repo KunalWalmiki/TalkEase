@@ -42,13 +42,13 @@ app.use("/api/v1/profile", profileRoutes);
 // });
 
 
-app.get("/*", (req, res) => {
+// app.get("/*", (req, res) => {
 
-    const vercelUrl = `https://talk-ease.vercel.app/`;
+//     const vercelUrl = `https://talk-ease.vercel.app/`;
 
-    res.redirect(`${vercelUrl}`);
+//     res.redirect(`${vercelUrl}`);
 
-})
+// })
 
 // --------------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
 
 })
 
-const PORT = process.env.PORT | 5000;
+const PORT = process.env.PORT;
 
 const server = app.listen(PORT,() => {
 

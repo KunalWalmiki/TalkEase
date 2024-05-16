@@ -6,7 +6,7 @@ exports.accessChats = async(req, res) => {
     try {
 
         // fetch userId to whom you want to send message 
-        const {userId, name} = req.body;
+        const {userId} = req.body;
 
         if(!userId) {
 
@@ -14,6 +14,17 @@ exports.accessChats = async(req, res) => {
                 success : false,
                 message : "User Id is Required",
             })
+        }
+
+        const user = await User.findById({_id : userId});
+
+        if(!user) {
+
+            return res.json({
+                success : false,
+                message : "User Not Found",
+            });
+
         }
 
         // finding chat of person you wants to chat
@@ -44,7 +55,7 @@ exports.accessChats = async(req, res) => {
 
             // create new chat if there is no previous chat
             const chat = {
-                chatName : name,
+                chatName : user?.firstName + " " + user?.lastName,
                 isGroupChat : false,
                 users : [req.user.id, userId],
             };
@@ -99,7 +110,9 @@ exports.fetchChats = async(req, res) => {
             .populate("groupAdmin", "firstName lastName")
             .populate("lastMessage", "firstName lastName content")
             .sort({updatedAt : -1}).exec();
-    
+
+            console.log(chats);
+
             return res.status(200).json({
                 success : true,
                 message : "All Chats Fetched Successfuly",
@@ -143,7 +156,16 @@ exports.fetchGroups = async(req, res) => {
 
     try {
 
-        const allGroups = await Chat.where("isGroupChat").equals(true);
+        const keyword = req.query.search 
+        ? {
+             $or :[
+                {chatName : {$regex : req.query.search, $options : "i"}},
+             ]
+          }
+        : {};
+
+        const allGroups = await Chat.find({...keyword}).where("isGroupChat").equals(true);
+        console.log(allGroups);
 
         return res.status(200).json({
             success : true,

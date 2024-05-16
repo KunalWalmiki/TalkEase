@@ -6,6 +6,11 @@ import { fetchAllChats } from '../services/operations/chat';
 import ConversationItem from './ConversationItem';
 import Spinner from './Spinner';
 import { setConversations } from '../redux/slices/userSlice';
+import { useDebounce } from '../hooks/useDebounce';
+import { IconButton } from '@mui/material';
+import SearchSharpIcon from '@mui/icons-material/SearchSharp';
+
+
 
 const SmallScreenChats = () => {
 
@@ -17,8 +22,29 @@ const SmallScreenChats = () => {
   const [loading, setLoading] = useState(false);
   const {conversations} = useSelector((state) => state.auth);
   const conversationData = JSON.parse(conversations);
+  const [search, setSearch] = useState("");
+  const value = useDebounce(search);
 
-  console.log(conversationData);
+  useEffect(() => {
+
+    const fetchConversations = async() => {
+
+        setLoading(true);
+        const response = await fetchAllChats(value);
+        setLoading(false);
+
+        if(response) {
+            
+            dispatch(setConversations(JSON.stringify(response)));
+
+        }
+
+    }
+
+    fetchConversations();
+
+  }, [value])
+
 
   useEffect(() => {
     const fetchConversations = async() => {
@@ -51,10 +77,24 @@ const SmallScreenChats = () => {
           ease: "anticipate",
           duration: "0.3",
         }}
-        className="list_container "
+        className="list_container flex flex-col"
       >
         <div className={`ug_header ${theme ? "dark" : ""}`}>
           <p className="ug_title unselectable">chats</p>
+        </div>
+
+        <div className={`user_search ${theme ? "dark" : ""}`}>
+            <IconButton>
+            <SearchSharpIcon className={`icon ${theme ? "dark" : ""}`}/>
+            </IconButton>
+            <input 
+            placeholder='Search' 
+            className={`search_box ${theme ? "dark" : ""}`}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            />
         </div>
           
             <div className={`sd_conversation1 min-h-[200px] ${theme ? "dark" : ""}`}>

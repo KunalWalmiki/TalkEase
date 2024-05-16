@@ -115,13 +115,13 @@ const ChatArea = () => {
          ease : "anticipate",
          duration : "0.3"
        }}
-       className='chatArea_container flex '>
-          <div className={`chatArea_header flex w-10/12 md:w-11/12  ${theme ? "dark" : ""}`}>
+       className='chatArea_container flex'>
+          <div className={`chatArea_header flex items-center w-10/12 md:w-11/12  ${theme ? "dark" : ""}`}>
             <div className='chat_content'>
             {/* <p className='con_icon'>{}</p> */}
             <Avatar src={image} />
             <div>
-            <p className='con_title'>{chat_user}</p>
+            <p className='font-medium text-sm md:text-xl'>{chat_user}</p>
             {/* <p className='con_timeStamp'>{conversation?.timeStamp}</p> */}
             </div>
             </div>

@@ -11,7 +11,7 @@ import { Outlet } from 'react-router-dom';
 const MainContainer = () => {
 
   return (
-    <div className='main_container h-screen'>
+    <div className='main_container max-h-screen'>
         <SideBar />
         <Outlet />
         {/* <WorkArea/> */}

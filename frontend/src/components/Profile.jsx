@@ -96,6 +96,7 @@ const Profile = () => {
     setLoading(true);
     const response = await dispatch(updateUserDetails(formData));
     setLoading(false);
+
   };
 
   const removeProfile = async () => {
@@ -137,6 +138,7 @@ const Profile = () => {
                 >
                   Edit
                 </button>
+                
                 <input
                   type="file"
                   ref={fileInputRef}

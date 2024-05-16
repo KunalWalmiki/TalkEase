@@ -21,8 +21,10 @@ const MessageSelf = ({props}) => {
         {/* <div className='conversation_container'> */}
             <div>
             <div className="selfmessageBox">
-            <p className='con_title'>You</p>
-            <p>{props?.content}</p>
+            <p  className='text-xs font-medium md:text-md'>You</p>
+            <p
+             className='text-xs font-medium md:text-md'
+            >{props?.content}</p>
             <div>
             <p className='con_timeStamp'>{formattedTime}</p>
             </div>

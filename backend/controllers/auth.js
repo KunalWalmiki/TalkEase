@@ -156,8 +156,7 @@ exports.getAllUsers = async(req, res) => {
              ]
           }
         : {};
-
-
+        
         const users = await User.find({...keyword, _id : {$ne : req.user.id}})
         .select("-password").select("-email").select("-createdAt").select("-updatedAt");
         

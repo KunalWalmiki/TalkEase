@@ -1,23 +1,50 @@
 import { IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {motion, AnimatePresence} from 'framer-motion';
-import { addSelftToGroup, fetchAvailableGroups } from '../services/operations/chat';
+import { addSelftToGroup, fetchAllChats, fetchAvailableGroups } from '../services/operations/chat';
 import Spinner from './Spinner';
+import { useDebounce } from '../hooks/useDebounce';
+import { setConversations } from '../redux/slices/userSlice';
 
 const AvailableGroups = () => {
 
       const [availableGroups, setAvailableGroups] = useState([]); 
       const theme = useSelector((state) => state.themeKey);
       const [loading, setLoading] = useState(false);
+      const [search, setSearch] = useState("");
+      const value = useDebounce(search);
+      const dispatch = useDispatch();
 
+      console.log(value);
+
+      useEffect(() => {
+
+        const fetchConversations = async() => {
+  
+            setLoading(true);
+            const response = await fetchAvailableGroups(value);
+            setLoading(false);
+  
+            if(response) {
+                
+                setAvailableGroups(response);
+  
+            }
+  
+        }
+  
+        fetchConversations();
+  
+      }, [value])
+      
       useEffect(() => {
 
           const fetchGroups = async() => {
                
                setLoading(true);
-               const response = await fetchAvailableGroups();
+               const response = await fetchAvailableGroups({});
                setLoading(false);
 
                if(response) {
@@ -52,11 +79,19 @@ const AvailableGroups = () => {
     <div className={`ug_header ${theme ? "dark" : ""}`}>
       <p className="ug_title unselectable">Available Groups</p>
     </div>
-    <div className={`sd_search ${theme ? "dark" : ""}`}>
+    <div className={`user_search ${theme ? "dark" : ""}`}>
       <IconButton>
         <SearchSharpIcon className={`${theme ? "dark" : ""}`}/>
       </IconButton>
-      <input placeholder="Search" className={`search_box unselectable ${theme ? "dark" : ""}`}/>
+      <input 
+      placeholder="Search"
+      value={search}
+      onChange={(e) => {
+
+        setSearch(e.target.value);
+
+      }} 
+      className={`search_box unselectable ${theme ? "dark" : ""}`}/>
     </div>
 
     <div className="listItem_container min-h-[200px] overflow-y-auto overflow-x-hidden">

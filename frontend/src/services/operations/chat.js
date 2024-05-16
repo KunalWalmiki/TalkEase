@@ -110,13 +110,13 @@ export const createGroup = async(user, groupName, navigate) => {
     toast.dismiss(toastId);
 }
 
-export const fetchAvailableGroups = async() => {
+export const fetchAvailableGroups = async(search) => {
 
     // const toastId = toast.loading("Loading...!");
     let result = [];
     try {
          
-        const response = await apiConnector("GET", FETCH_ALL_GROUPS_API, null,{
+        const response = await apiConnector("GET", FETCH_ALL_GROUPS_API + "?search=" + search, null,{
             Authorization : `Bearer ${sessionStorage.getItem("token")}`,
         });
 

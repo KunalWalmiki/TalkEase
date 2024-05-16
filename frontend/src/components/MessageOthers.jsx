@@ -29,8 +29,10 @@ const MessageOthers = ({props, image}) => {
         </div>
             
             <div className="messageBox">
-            <p className={`con_title`}>{props?.sender.firstName} {" "} {props?.sender?.lastName}</p>
-            <p>{props?.content}</p>
+            <p className={`text-xs md:text-md font-medium`}>{props?.sender.firstName} {" "} {props?.sender?.lastName}</p>
+            <p
+            className='text-xs font-medium md:text-md'
+            >{props?.content}</p>
           <p className='con_timeStamp'>{formattedTime}</p>
             
             </div> 

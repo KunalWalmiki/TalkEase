@@ -19,6 +19,7 @@ const Users = () => {
   const value = useDebounce(search);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
 
     
@@ -40,6 +41,7 @@ const Users = () => {
   },[value]);
 
   const dispatch = useDispatch();
+
   const createChat = async(userId) => {
 
     // console.log(userId);
@@ -65,7 +67,7 @@ const Users = () => {
       <div className={`ug_header ${theme ? "dark" : ""}`}>
         <p className="ug_title unselectable">Available Users</p>
       </div>
-      <div className={`sd_search ${theme ? "dark" : ""}`}>
+      <div className={`user_search ${theme ? "dark" : ""}`}>
         <IconButton>
           <SearchSharpIcon className={`${theme ? "dark" : ""}`}/>
         </IconButton>
