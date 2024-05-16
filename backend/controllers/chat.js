@@ -26,7 +26,7 @@ exports.accessChats = async(req, res) => {
             });
 
         }
-
+    
         // finding chat of person you wants to chat
         var isChat = await Chat.find({
             isGroupChat : false,
